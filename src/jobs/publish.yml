@@ -1,0 +1,23 @@
+description: |
+  Publish Orb
+  Requirement
+  * environment variable CIRCLECI_CLI_TOKEN
+executor: << parameters.executor >>
+parameters:
+  executor:
+    type: executor
+    default: circleci
+    description: |
+      Custom executor.
+  orb_path:
+    type: string
+    default:
+      Orb path
+steps:
+  - attach_workspace:
+      at: .
+  - run:
+      name: Publish orb
+      command: |
+        # requirement: environment variable CIRCLECI_CLI_TOKEN
+        circleci orb publish orb.yml << parameters.orb_path>>@${CIRCLE_TAG}

@@ -1,0 +1,29 @@
+description: |
+  Validate Orb
+parameters:
+  workflows:
+    type: string
+    default: ""
+    description: |
+      The shell command to get workflow files to test Orb.
+steps:
+  - run:
+      name: Validate config
+      command: |
+        if [ -n "<< parameters.workflows >>" ]; then
+          for file in $(<< parameters.workflows >>); do
+            filepath=$(mktemp)
+            if cat orb.yml "$file" | circleci config validate - > "$filepath" 2>&1; then
+              rm $filepath
+              continue
+            else
+              COLOR_1="\e[31;1m"
+              COLOR_OFF="\e[m"
+              echo -e "${COLOR_1}$file is failed${COLOR_OFF}" >&2
+              cat "$filepath" >&2
+              rm $filepath
+              exit 1
+            fi
+          done
+          exit 0
+        fi

@@ -1,0 +1,8 @@
+executor: circleci
+steps:
+  - checkout
+  - orb-tools/pack
+  - persist_to_workspace:
+      root: .
+      paths:
+        - "*"

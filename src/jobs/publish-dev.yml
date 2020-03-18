@@ -1,0 +1,28 @@
+description: |
+  Publish Orb dev version
+  Requirement
+  * environment variable CIRCLECI_CLI_TOKEN
+executor: << parameters.executor >>
+parameters:
+  executor:
+    type: executor
+    default: circleci
+    description: |
+      Custom executor.
+  orb_path:
+    type: string
+    default:
+      Orb path
+steps:
+  - attach_workspace:
+      at: .
+  - run:
+      name: Publish Orb dev version
+      command: |
+        if [ -n "${CIRCLE_PULL_REQUEST:-""}" ]; then
+          # requirement: environment variable CIRCLECI_CLI_TOKEN
+          circleci orb publish orb.yml << parameters.orb_path >>@dev:pr-$(basename ${CIRCLE_PULL_REQUEST})
+        fi
+        if [ "${CIRCLE_BRANCH:-""}" = "master" ]; then
+          circleci orb publish orb.yml << parameters.orb_path >>@dev:master
+        fi

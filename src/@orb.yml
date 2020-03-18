@@ -1,0 +1,8 @@
+---
+version: 2.1
+description: |
+  Test and publish Orb
+display:
+  source_url: https://github.com/suzuki-shunsuke/circleci-orb-orb
+orbs:
+  orb-tools: circleci/orb-tools@9.0.1
