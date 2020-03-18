@@ -1,0 +1,28 @@
+description: |
+  Test Orb
+executor: << parameters.executor >>
+parameters:
+  executor:
+    type: executor
+    default: circleci
+    description: |
+      Custom executor.
+  workflows:
+    type: string
+    default: ""
+    description: |
+      The shell command to get workflow files to test Orb.
+steps:
+  - attach_workspace:
+      at: .
+  - orb-tools/validate
+  - run:
+      name: Install bash
+      command: |
+        if command -v apk > /dev/null 2>&1; then
+          if ! command -v bash > /dev/null 2>&1; then
+            apk add bash
+          fi
+        fi
+  - validate:
+      workflows: << parameters.workflows >>
