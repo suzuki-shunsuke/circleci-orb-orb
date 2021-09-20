@@ -1,0 +1,17 @@
+description: |
+  Publish Orb dev version
+parameters:
+  orb_path:
+    type: string
+    default:
+      Orb path
+steps:
+  - run:
+      name: Publish Orb dev version
+      command: |
+        # requirement: circleci cli
+        if [ -n "${CIRCLE_PULL_REQUEST:-""}" ]; then
+          # requirement: environment variable CIRCLECI_CLI_TOKEN
+          circleci orb publish orb.yml "<< parameters.orb_path >>@dev:pr-$(basename ${CIRCLE_PULL_REQUEST})"
+        fi
+        circleci orb publish orb.yml "<< parameters.orb_path >>@dev:${CIRCLE_SHA}"

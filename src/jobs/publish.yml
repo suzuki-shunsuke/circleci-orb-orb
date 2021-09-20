@@ -16,8 +16,4 @@ parameters:
 steps:
   - attach_workspace:
       at: .
-  - run:
-      name: Publish orb
-      command: |
-        # requirement: environment variable CIRCLECI_CLI_TOKEN
-        circleci orb publish orb.yml << parameters.orb_path>>@${CIRCLE_TAG}
+  - publish
