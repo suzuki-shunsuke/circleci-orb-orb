@@ -3,7 +3,7 @@ description: |
 parameters:
   orb_path:
     type: string
-    default:
+    default: >
       Orb path
 steps:
   - run:

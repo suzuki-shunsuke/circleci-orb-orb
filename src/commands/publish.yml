@@ -2,11 +2,10 @@ description: |
   Publish Orb
   Requirement
   * environment variable CIRCLECI_CLI_TOKEN
-executor: << parameters.executor >>
 parameters:
   orb_path:
     type: string
-    default:
+    default: >
       Orb path
 steps:
   - run:
