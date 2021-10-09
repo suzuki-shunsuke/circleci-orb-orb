@@ -1,0 +1,16 @@
+description: |
+  Publish Orb
+  Requirement
+  * environment variable CIRCLECI_CLI_TOKEN
+parameters:
+  orb_path:
+    type: string
+    default: >
+      Orb path
+steps:
+  - run:
+      name: Publish orb
+      command: |
+        # requirement: environment variable CIRCLECI_CLI_TOKEN
+        # requirement: circleci cli
+        circleci orb publish orb.yml << parameters.orb_path>>@${CIRCLE_TAG}

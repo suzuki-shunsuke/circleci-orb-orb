@@ -16,13 +16,5 @@ parameters:
 steps:
   - attach_workspace:
       at: .
-  - run:
-      name: Publish Orb dev version
-      command: |
-        if [ -n "${CIRCLE_PULL_REQUEST:-""}" ]; then
-          # requirement: environment variable CIRCLECI_CLI_TOKEN
-          circleci orb publish orb.yml << parameters.orb_path >>@dev:pr-$(basename ${CIRCLE_PULL_REQUEST})
-        fi
-        if [ "${CIRCLE_BRANCH:-""}" = "master" ]; then
-          circleci orb publish orb.yml << parameters.orb_path >>@dev:master
-        fi
+  - publish-dev:
+      orb_path: << parameters.orb_path >>
