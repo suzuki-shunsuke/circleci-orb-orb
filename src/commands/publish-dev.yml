@@ -14,4 +14,4 @@ steps:
           # requirement: environment variable CIRCLECI_CLI_TOKEN
           circleci orb publish orb.yml "<< parameters.orb_path >>@dev:pr-$(basename ${CIRCLE_PULL_REQUEST})"
         fi
-        circleci orb publish orb.yml "<< parameters.orb_path >>@dev:${CIRCLE_SHA}"
+        circleci orb publish orb.yml "<< parameters.orb_path >>@dev:${CIRCLE_SHA1}"
